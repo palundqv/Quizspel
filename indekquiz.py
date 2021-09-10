@@ -18,7 +18,7 @@ for i in range(0, len(questions)):
 
 
 print("Welcome to the INDEK Quiz! Let's begin.")
-print("--------------------------------------")
+print("---------------------------------------")
 correct = 0
 for i in chosen:
     alternatives = ["A", "B", "C", "D", "E"]
