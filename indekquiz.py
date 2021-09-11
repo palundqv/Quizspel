@@ -11,42 +11,52 @@ with open("ks1.csv", newline="") as csvfile:
 
 chosen = []
 for i in range(0, len(questions)):
-    number = numpy.random.random_integers(1, len(questions))
+    number = numpy.random.random_integers(2, len(questions))
     while number in chosen:
         number = numpy.random.random_integers(1, len(questions))
-    chosen.append(number)
+    chosen.append(number-1)
 
 
-print("Welcome to the INDEK Quiz! Let's begin.")
+print("Welcome to POPPES INDEK Quiz! Let's begin.")
 print("---------------------------------------")
 correct = 0
+asked_questions = []
+amountOfQuestions = 0
 for i in chosen:
-    alternatives = ["A", "B", "C", "D", "E"]
-    try: order = [ questions[i][0], questions[i][1], questions[i][2], questions[i][3] ]
-    except IndexError: order = [ questions[i-1][0], questions[i-1][1], questions[i-1][2], questions[i-1][3] ]
-
-    index = [1, 2, 3, 4]
-    random.shuffle(index)
-
-    print("Question", i+1, ": ", questions[i][0])
-    print("1: ", questions[i][index[0]])
-    print("2: ", questions[i][index[1]])
-    print("3: ", questions[i][index[2]])
-    print("4: ", questions[i][index[3]])
-    answerinput = int((input("Answer: ")))
-    
-    try: 
-        answer = questions[i][index[answerinput-1]]
-        answer_index = order.index(answer)
-    except (TypeError, ValueError) as e: 
-        print("Something went wrong")
-        answer_index = 4
-
-    if alternatives[answer_index-1] == questions[i][5]:
-        print("GREAT!")
-        correct = correct + 1
+    if i in asked_questions:
+        pass
     else:
-        print("FAKE NEWS! The correct answer is", alternatives.index(questions[i][5])+1)
+        asked_questions.append(i)
+        amountOfQuestions += 1
+
+        alternatives = ["A", "B", "C", "D", "E"]
+        try: order = [ questions[i][0], questions[i][1], questions[i][2], questions[i][3] ]
+        except IndexError: order = [ questions[i-1][0], questions[i-1][1], questions[i-1][2], questions[i-1][3] ]
+
+        index = [1, 2, 3, 4]
+        random.shuffle(index)
+
+        print("Question", i+1, ": ", questions[i][0])
+        print("1: ", questions[i][index[0]])
+        print("2: ", questions[i][index[1]])
+        print("3: ", questions[i][index[2]])
+        print("4: ", questions[i][index[3]])
+        answerinput = input("Answer: ")
+        
+        try: 
+            answer = questions[i][index[int(answerinput)-1]]
+            answer_index = order.index(answer)
+        except (TypeError, ValueError) as e: 
+            print("Something went wrong")
+            answer_index = 4
+
+        if alternatives[answer_index-1] == questions[i][5]:
+            print("GREAT!")
+            correct = correct + 1
+        else:
+            print("FAKE NEWS! The correct answer is", alternatives.index(questions[i][5])+1)
+
+        print(correct, "right out of", amountOfQuestions)
 
 if correct >=6:
     print("Total result:",correct, "out of 10. Good job!")
