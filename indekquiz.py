@@ -22,17 +22,19 @@ print("---------------------------------------")
 correct = 0
 for i in chosen:
     alternatives = ["A", "B", "C", "D", "E"]
-    order = [ questions[i][0], questions[i][1], questions[i][2], questions[i][3] ]
+    try: order = [ questions[i][0], questions[i][1], questions[i][2], questions[i][3] ]
+    except IndexError: order = [ questions[i-1][0], questions[i-1][1], questions[i-1][2], questions[i-1][3] ]
 
     index = [1, 2, 3, 4]
     random.shuffle(index)
 
-    print(questions[i][0])
+    print("Question", i+1, ": ", questions[i][0])
     print("1: ", questions[i][index[0]])
     print("2: ", questions[i][index[1]])
     print("3: ", questions[i][index[2]])
     print("4: ", questions[i][index[3]])
     answerinput = int((input("Answer: ")))
+    
     try: 
         answer = questions[i][index[answerinput-1]]
         answer_index = order.index(answer)
