@@ -9,7 +9,7 @@ with open("ks2.csv", newline="") as csvfile:
         question = [row[0], row[1], row[2], row[3], row[4], row[5]]
         questions.append(question)
 
-amount = list(range(1, 47))
+amount = list(range(1, len(questions)))
 random.shuffle(amount)
 
 print("Welcome to POPPES INDEK Quiz! Let's begin.")
@@ -28,7 +28,7 @@ for i in amount:
     random.shuffle(index)
 
     print("")
-    print("Question", i, ": \n", questions[i][0])
+    print("Question", i+1, ": \n", questions[i][0])
     print("1: ", questions[i][index[0]])
     print("2: ", questions[i][index[1]])
     print("3: ", questions[i][index[2]])
@@ -40,10 +40,11 @@ for i in amount:
             answer = questions[i][index[int(answerinput)-1]]
             answer_index = questionOrder.index(answer)
             break
-        except (TypeError, ValueError) as e: 
+        except (TypeError, ValueError, IndexError) as e: 
             print("Either you made the wrong input or I'm bad at coding")
             answerinput = input("Try again: ")
 
+    print("")
     if alternatives[answer_index] == questions[i][5]:
         print("GREAT!")
         correct = correct + 1
@@ -55,7 +56,7 @@ for i in amount:
     print(correct, "right out of", amountOfQuestions)
 
 
-if correct >=(47/6):
-    print("Total result:",correct, "out of 46. Good job!")
+if correct >=(len(questions)*0.6):
+    print("Total result:",correct, "out of "+ str(len(questions)-1)+ ". Good job!")
 else:
-    print("Total result:", correct, "out of 46. Not godkänd, study more for kontrollskrivning of DOOM!")
+    print("Total result:", correct, "out of " + str(len(questions)-1) + ". Not godkänd, study more for kontrollskrivning of DOOM!")
