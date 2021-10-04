@@ -2,7 +2,7 @@ import csv
 import numpy
 import random
 
-with open("ks2.csv", newline="") as csvfile:
+with open("ks3.csv", newline="") as csvfile:
     file = csv.reader(csvfile, delimiter=',')
     questions = []
     for row in file:
@@ -28,7 +28,7 @@ for i in amount:
     random.shuffle(index)
 
     print("")
-    print("Question", i+1, ": \n", questions[i][0])
+    print("Question", i+2, ": \n", questions[i][0])
     print("1: ", questions[i][index[0]])
     print("2: ", questions[i][index[1]])
     print("3: ", questions[i][index[2]])
